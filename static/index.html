@@ -1,9 +1,74 @@
-<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JARVIS · Locale</title><link rel="stylesheet" href="/style.css"></head><body>
-<aside><div class="brand"><b>◉</b> J A R V I S</div><small>IL TUO ASSISTENTE LOCALE</small><nav><button data-tab="home" class="active">⌂ &nbsp; Centro di controllo</button><button data-tab="notes">▤ &nbsp; Le mie note</button><button data-tab="reminders">◷ &nbsp; Promemoria</button><button data-tab="settings">⚙ &nbsp; Impostazioni e guida</button></nav><div class="side-bottom"><span class="dot"></span> Python · Dati sul tuo PC<br><small>NESSUN ABBONAMENTO</small></div></aside>
-<main><header><div><small>PERSONAL INTELLIGENCE SYSTEM</small><h1>Ciao, <span id="userName">benvenuto</span>.</h1><p>Uno spazio per pensare, organizzare e creare.</p></div><div class="date"><strong id="clock"></strong><span id="date"></span></div></header>
-<section id="home" class="tab"><div class="workspace"><div class="core-panel"><div class="core" id="core"><div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="face"><div class="eyes">◢ &nbsp; ◣</div><b>J A R V I S</b><small>LOCAL ASSISTANT</small></div></div><span id="state">PRONTO AD ASCOLTARTI</span><p class="core-hint">La tecnologia al servizio delle tue idee.</p></div><div class="conversation"><div class="panel-title">✦ Conversazione <button id="clear" class="subtle">Svuota</button></div><div id="messages" role="log" aria-live="polite"><div class="message assistant">Ciao! Sono JARVIS. Scrivi «aiuto» per scoprire i comandi locali, oppure fammi una domanda.</div></div><label class="web-switch"><input type="checkbox" id="webSearch"> Cerca sul web <span>Invia la domanda a motori di ricerca pubblici</span></label><form id="chatForm"><label class="sr" for="prompt">Messaggio per JARVIS</label><input id="prompt" placeholder="Scrivi o usa il microfono…" autocomplete="off" maxlength="6000" required><button id="mic" type="button" title="Avvia o termina dettatura" aria-label="Microfono">◉</button><button id="send" type="submit">Invia ↗</button></form><small id="voiceHint">Voce locale: richiede il pacchetto Vosk e il modello italiano.</small></div></div>
-<div class="actions"><button id="newNote">▤<span>Scrivi una nota</span></button><button id="newReminder">◷<span>Crea promemoria</span></button><button data-command="calcola: (12 + 8) * 3">⌗<span>Calcolo rapido</span></button><button data-command="aiuto">✦<span>Cosa puoi fare?</span></button></div><div class="bottom-grid"><article><div class="panel-title">Note recenti</div><div id="recentNotes"></div></article><article><div class="panel-title">Prossimi promemoria</div><div id="recentReminders"></div></article><article class="status-panel"><small>MOTORE CONVERSAZIONALE</small><h2 id="modelStatus">Controllo…</h2><p id="modelName"></p><small>Le funzioni essenziali sono sempre disponibili.</small></article></div></section>
-<section id="notes" class="tab hidden"><h2>Le mie note</h2><p>Salvate nel database locale. Puoi esportarle insieme ai promemoria.</p><button id="addNote">+ Nuova nota</button><div id="notesList" class="list"></div></section>
-<section id="reminders" class="tab hidden"><h2>Promemoria</h2><p>Gli avvisi funzionano con JARVIS aperto. Le scadenze trascorse vengono segnalate alla riapertura.</p><button id="addReminder">+ Nuovo promemoria</button><div id="remindersList" class="list"></div></section>
-<section id="settings" class="tab hidden"><h2>Il tuo spazio</h2><article class="settings"><label>Come ti chiami? <input id="name" maxlength="40" placeholder="Il tuo nome"></label><label><input type="checkbox" id="speak"> Leggi le risposte ad alta voce</label><label>Voce del sistema <select id="voices"></select></label><button id="stopSpeech">Interrompi lettura</button><button id="export">Esporta note e promemoria (JSON)</button><h3>Conversazione gratuita e locale</h3><p>Installa Ollama da ollama.com, poi esegui <code>ollama pull qwen2.5:1.5b</code>. Avvia Ollama prima di usare la chat. Il download richiede internet; l'uso del modello scaricato è locale.</p><h3>Comandi disponibili anche senza modello AI</h3><p><code>ora</code> · <code>data</code> · <code>nota: comprare il pane</code> · <code>note</code> · <code>promemoria</code> · <code>calcola: 5 * (3 + 2)</code></p><h3>Ricerca internet gratuita</h3><p>Attiva “Cerca sul web” sopra la casella della chat oppure scrivi <code>cerca sul web: la tua domanda</code>. JARVIS cerca estratti su DuckDuckGo, con Bing come alternativa, e mostra i link delle fonti. Non servono nuove librerie o chiavi API. La ricerca non addestra il modello e può fallire se il motore blocca le richieste. Verifica sempre le fonti.</p><h3>Privacy e limiti</h3><p>Chat in memoria nella scheda; note e promemoria nel file data/jarvis.db. La lettura usa le voci installate nel browser/sistema: scegli una voce locale per restare offline. Nessuna funzione controlla automaticamente il computer o la domotica.</p></article></section>
-<footer>JARVIS / LOCAL EDITION <span>Progettato per restare tuo.</span></footer></main><dialog id="editor"><form id="itemForm"><h2 id="editorTitle"></h2><label>Testo<textarea id="itemText" maxlength="4000" required></textarea></label><label id="dueLabel">Data e ora<input type="datetime-local" id="itemDue"></label><div class="dialog-actions"><button type="button" id="cancel">Annulla</button><button type="submit">Salva</button></div></form></dialog><div id="toast" role="status"></div><script src="/app.js"></script></body></html>
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#050c12">
+  <title>JARVIS · Neural Edition</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <svg class="icon-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11a8 8 0 0 1-8 8H8l-5 3 1-6a8 8 0 1 1 17-5Z"/></symbol>
+    <symbol id="i-note" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H5V3Zm9 0v5h4M8 12h8M8 16h8M8 8h3"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M4 17h16l-2-3V9a6 6 0 0 0-12 0v5Zm6 3h4M12 1v2"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="m9 3 1-2h4l1 3 3 1 3 1v4l-2 2 1 3 1 2-3 3-3-1-2 2h-4l-1-3-3-1-2-2 1-3-2-2 2-4 3 1Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="m3 3 19 9-19 9 4-9Zm4 9h15"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 6h14M5 18h14"/></symbol>
+    <symbol id="i-cube" viewBox="0 0 24 24"><path d="m12 2 10 5v10l-10 5-10-5V7Zm0 0v10m0 10V12M2 7l10 5 10-5"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 5v14M15 5v14"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m9 5 10 7-10 7Z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+  </defs></svg>
+  <aside>
+    <div class="identity"><div class="brand">J A R V I S</div><small>IL SUO ASSISTENTE PERSONALE</small></div>
+    <nav aria-label="Navigazione principale">
+      <button data-tab="home" class="active"><svg class="icon"><use href="#i-chat"/></svg>Conversazione</button>
+      <button data-tab="notes"><svg class="icon"><use href="#i-note"/></svg>Note</button>
+      <button data-tab="reminders"><svg class="icon"><use href="#i-bell"/></svg>Promemoria</button>
+      <button data-tab="settings"><svg class="icon"><use href="#i-settings"/></svg>Impostazioni</button>
+    </nav>
+    <div class="side-bottom"><svg class="icon"><use href="#i-cube"/></svg><span id="sideStatus">Modello locale</span><span class="dot" id="modelDot" data-ready="false"></span></div>
+  </aside>
+  <main>
+    <header>
+      <div><div class="eyebrow">CENTRO DI CONTROLLO <span></span></div><h1 id="greetingTitle">Benvenuto, signore.</h1><p id="greetingSubtitle">Come posso aiutarla?</p></div>
+      <div class="date"><strong id="clock"></strong><span id="date"></span></div>
+    </header>
+    <section id="home" class="tab">
+      <div class="workspace">
+        <div class="core-panel" id="core" data-state="idle">
+          <div class="neural-stage" id="neuralStage">
+            <div class="stage-label">NEURAL INTERFACE <span>01 / LOCAL</span></div>
+            <canvas id="neuralCanvas" role="img" aria-label="Rete neurale tridimensionale simulata, decorativa"></canvas>
+            <p class="canvas-fallback hidden" id="canvasFallback">Visualizzazione non disponibile in questo browser. Chat e voce restano utilizzabili.</p>
+            <div class="stage-caption"><span class="mini-dot"></span> Visualizzazione simulata</div>
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          </div>
+          <div class="activity-area"><span id="state" role="status" aria-live="polite">AL SUO SERVIZIO</span><div class="activity-controls"><div class="waveform" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><button id="animationToggle" class="round subtle" aria-label="Metta in pausa l’animazione" aria-pressed="false"><svg class="icon"><use href="#i-pause"/></svg></button><div class="waveform reverse" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><button id="greet" class="greet-button">Ascolti il saluto</button></div>
+        </div>
+        <div class="conversation">
+          <div class="panel-title"><h2>Conversazione</h2><button id="clear" class="outline"><svg class="icon"><use href="#i-plus"/></svg>Nuova chat</button></div>
+          <div id="messages" role="log" aria-label="Conversazione con JARVIS" aria-live="polite"></div>
+          <div class="compose"><label class="web-switch"><svg class="icon"><use href="#i-globe"/></svg><input type="checkbox" id="webSearch"><span>Cerca sul web</span></label><form id="chatForm"><label class="sr" for="prompt">Messaggio per JARVIS</label><input id="prompt" placeholder="Scriva o prema il microfono…" autocomplete="off" maxlength="6000" required><button id="mic" type="button" class="round mic" title="Avvii o termini la dettatura" aria-label="Microfono"><svg class="icon"><use href="#i-mic"/></svg></button><button id="send" type="submit" class="round" aria-label="Invii il messaggio"><svg class="icon"><use href="#i-send"/></svg></button></form><small id="voiceHint">Dettatura locale · prema il microfono per iniziare.</small></div>
+        </div>
+      </div>
+      <div class="bottom-grid">
+        <article><div class="panel-title"><button class="card-link" data-tab="notes"><svg class="icon"><use href="#i-note"/></svg>Note recenti <svg class="icon chevron"><use href="#i-arrow"/></svg></button><button id="newNote" class="add-button" aria-label="Nuova nota">+</button></div><div id="recentNotes"></div></article>
+        <article><div class="panel-title"><button class="card-link" data-tab="reminders"><svg class="icon"><use href="#i-bell"/></svg>Promemoria <svg class="icon chevron"><use href="#i-arrow"/></svg></button><button id="newReminder" class="add-button" aria-label="Nuovo promemoria">+</button></div><div id="recentReminders"></div></article>
+        <article class="status-panel"><div class="panel-title"><svg class="icon"><use href="#i-cube"/></svg><span>Motore locale</span></div><h2 id="modelStatus">Controllo del modello…</h2><p id="modelName"></p><small>Esecuzione sul suo computer</small></article>
+      </div>
+      <div class="quick-commands"><span>COMANDI RAPIDI</span><button data-command="ora">Che ore sono?</button><button data-command="calcola: (12 + 8) * 3">Calcolatrice</button><button data-command="aiuto">Cosa può fare?</button></div>
+    </section>
+    <section id="notes" class="tab hidden"><div class="section-heading"><div class="eyebrow">ARCHIVIO PERSONALE</div><h2>Le sue note</h2><p>Conservate sul suo computer, a sua disposizione.</p><button id="addNote" class="outline">+ Nuova nota</button></div><div id="notesList" class="list"></div></section>
+    <section id="reminders" class="tab hidden"><div class="section-heading"><div class="eyebrow">LA SUA AGENDA</div><h2>Promemoria</h2><p>Gli avvisi funzionano con JARVIS aperto. Le scadenze trascorse vengono segnalate alla riapertura.</p><button id="addReminder" class="outline">+ Nuovo promemoria</button></div><div id="remindersList" class="list"></div></section>
+    <section id="settings" class="tab hidden"><div class="section-heading"><div class="eyebrow">PREFERENZE</div><h2>Al suo servizio.</h2><p>Voce, connessione e dati personali.</p></div><article class="settings"><h3>Voce e saluto</h3><label><input type="checkbox" id="speak"> Legga le risposte ad alta voce</label><label>Voce italiana <select id="voices" aria-label="Voce italiana"></select></label><label><input type="checkbox" id="autoGreet"> Saluto vocale al primo clic di ogni apertura</label><p>«Buongiorno», «Buon pomeriggio» o «Buonasera, signore. Come posso aiutarla?», in base all’ora del suo computer. Il saluto automatico richiede anche la lettura attiva. I browser possono richiedere un’interazione prima di riprodurre audio.</p><button id="stopSpeech">Interrompa la lettura</button><h3>Interfaccia neurale</h3><p>Una visualizzazione simulata reagisce agli stati di ascolto, trascrizione, elaborazione e lettura. Durante l’ascolto reagisce anche al volume del microfono. Non visualizza l’attività interna del modello. Può mettere in pausa l’animazione; la preferenza di movimento ridotto del sistema viene rispettata.</p><h3>Conversazione locale e web</h3><p>Per la chat libera avvii Ollama con il modello <code>qwen2.5:1.5b</code>. Per cercare online attivi “Cerca sul web” o scriva <code>cerca sul web: la sua domanda</code>. La domanda viene inviata a DuckDuckGo, con Bing come alternativa. Le fonti compaiono sotto la risposta. Non servono chiavi API; la disponibilità dei motori non è garantita. Il modello può sbagliare: verifichi le fonti.</p><h3>Comandi essenziali</h3><p><code>ora</code> · <code>data</code> · <code>nota: testo</code> · <code>note</code> · <code>promemoria</code> · <code>calcola: 5 * (3 + 2)</code></p><h3>Dati e privacy</h3><p>Note e promemoria sono in <code>data/jarvis.db</code>; la chat rimane nella scheda e si perde al ricaricamento. La voce usa le voci del sistema/browser: scelga una voce “locale” per l’uso offline. Nessuna funzione controlla automaticamente il computer o la domotica.</p><button id="export">Esporti note e promemoria (JSON)</button></article></section>
+    <footer><span>JARVIS LOCALE <b>/</b> NEURAL EDITION</span><span>AL SUO SERVIZIO.</span></footer>
+  </main>
+  <dialog id="editor"><form id="itemForm"><div class="eyebrow">ARCHIVIO LOCALE</div><h2 id="editorTitle"></h2><label>Testo<textarea id="itemText" maxlength="4000" required></textarea></label><label id="dueLabel">Data e ora<input type="datetime-local" id="itemDue"></label><div class="dialog-actions"><button type="button" id="cancel">Annulli</button><button type="submit" class="outline">Salvi</button></div></form></dialog>
+  <div id="toast" role="status"></div>
+  <script src="/neural.js"></script><script src="/app.js"></script>
+</body>
+</html>

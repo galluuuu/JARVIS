@@ -1,6 +1,17 @@
-# JARVIS Locale
+# JARVIS Locale · Neural Edition
 
-## Aggiornamento: ricerca internet
+
+[Guardi una schermata dell’interfaccia realizzata](docs/proposte/interfaccia-neurale-realizzata.png).
+
+## Nuova interfaccia e saluto formale
+
+[Scarichi l’aggiornamento Neural Edition](downloads/JARVIS-Aggiornamento-Neural.zip?raw=true). Include la rete di nodi animata, chat e controlli nello stile approvato, tono formale e saluto in base all’ora: **«Buongiorno / Buon pomeriggio / Buonasera, signore. Come posso aiutarla?»**. Nessuna nuova dipendenza. La rete è una visualizzazione simulata collegata agli stati di JARVIS e al volume del microfono, non una visualizzazione del modello AI.
+
+**Installazione su Windows:** chiuda JARVIS con Ctrl+C, estragga lo ZIP in una cartella temporanea e copi tutto il contenuto nella cartella JARVIS già esistente, confermando le sostituzioni. Non cancelli `.venv`, `models` o `data`. Avvii con `.venv\Scripts\python app.py`, poi prema Ctrl+F5 nel browser. [Istruzioni complete](docs/AGGIORNAMENTO-NEURAL.md).
+
+Per il saluto vocale, in Impostazioni abiliti la lettura e il saluto al primo clic. Il pulsante **Ascolti il saluto** funziona anche su richiesta. Le voci restano quelle installate sul suo sistema. Il modello Ollama riceve l’istruzione di dare del Lei, ma può non rispettarla in ogni risposta.
+
+## Aggiornamento precedente: ricerca internet
 
 Attiva **Cerca sul web** nella chat oppure scrivi/detta **cerca sul web: ultime notizie sull’esplorazione spaziale**. La domanda viene inviata a DuckDuckGo (HTML), con Bing RSS come alternativa. Il modello locale riassume gli estratti e l’interfaccia mostra fino a quattro fonti cliccabili. Non vengono scaricate le pagine complete. Nessuna API key o nuova libreria richiesta. I comandi locali restano offline. I motori possono bloccare le richieste automatiche o restituire risultati vecchi/non pertinenti: controlla le fonti. Se la ricerca fallisce, non viene generata una falsa risposta aggiornata; puoi aprire la ricerca nel browser o disattivare il web.
 

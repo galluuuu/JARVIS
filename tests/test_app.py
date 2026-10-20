@@ -38,9 +38,22 @@ class JarvisTests(unittest.TestCase):
             body=json.loads(call.call_args.args[0].data)
             self.assertEqual(body['model'],'qwen2.5:1.5b')
             self.assertEqual(body['messages'][-1]['role'],'user')
+            self.assertIn('dando del Lei',body['messages'][0]['content'])
+            self.assertIn('signore',body['messages'][0]['content'])
     def test_missing_ollama(self):
         with patch('app.urllib.request.urlopen',side_effect=urllib.error.URLError('offline')):
-            self.assertIn('non è disponibile',app.chat('ciao',[]))
+            self.assertIn('non è disponibile',app.chat('Spiegami la gravita',[]))
+    def test_formal_greeting_boundaries(self):
+        for hour, saluto in [(0,'Buonasera'),(4,'Buonasera'),(5,'Buongiorno'),(11,'Buongiorno'),(12,'Buon pomeriggio'),(17,'Buon pomeriggio'),(18,'Buonasera'),(23,'Buonasera')]:
+            self.assertEqual(app.greeting(hour)['message'],saluto+', signore. Come posso aiutarla?')
+        for hour in [-1,24,'12',True]:
+            with self.assertRaises(ValueError):app.greeting(hour)
+    def test_greetings_and_commands_do_not_require_model(self):
+        with patch('app.urllib.request.urlopen') as model:
+            self.assertIn('signore',app.chat('Buonasera!',[]))
+            self.assertIn('signore',app.chat('ora',[]).lower())
+            self.assertIn('signore',app.chat('note',[]))
+            model.assert_not_called()
     def test_http_workflow(self):
         server=app.ThreadingHTTPServer(('127.0.0.1',0),app.Handler)
         thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
@@ -50,6 +63,10 @@ class JarvisTests(unittest.TestCase):
             with urllib.request.urlopen(req) as r:return json.load(r)
         try:
             with urllib.request.urlopen(base+'/') as r:self.assertIn(b'JARVIS',r.read())
+            with urllib.request.urlopen(base+'/api/greeting?hour=19') as r:self.assertEqual(json.load(r)['message'],'Buonasera, signore. Come posso aiutarla?')
+            with self.assertRaises(urllib.error.HTTPError) as err:urllib.request.urlopen(base+'/api/greeting?hour=24')
+            self.assertEqual(err.exception.code,400)
+            with urllib.request.urlopen(base+'/neural.js') as r:self.assertIn(b'JarvisNetwork',r.read())
             rows=post('/api/items',{'kind':'reminder','text':'Test','due':'2030-01-01T10:00'})
             ident=rows[0]['id'];self.assertEqual(post('/api/done',{'id':ident})[0]['done'],1)
             self.assertEqual(post('/api/delete',{'id':ident}),[])

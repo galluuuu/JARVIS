@@ -15,3 +15,8 @@ Questi limiti non impediscono l'utilizzo delle funzioni locali già verificate. 
 # Aggiornamento ricerca web
 
 18 test superati, inclusi test del parsing di estratti DuckDuckGo/Bing, fallback, limiti e richiesta Ollama con contesto web. Verifica Chromium con server locale, estratti simulati e Ollama simulato: fonti cliccabili, interruttore persistente, calcolatrice e mobile passati. Ricerca reale bloccata dalla rete cloud (HTTP 403 Domain forbidden). Vedi AGGIORNAMENTO-WEB.md per limiti e prova sul PC.
+
+
+# Neural Edition e tono formale
+
+20 test Python passati. Chromium: Canvas effettivamente disegnato e animato, pausa e movimento ridotto, saluto corretto in base all’ora locale, un solo saluto automatico per apertura, saluto manuale, transizioni di stato, note, calcoli, fonti e layout mobile. La prova del flusso audio usa microfono virtuale e trascrizione/sintesi simulate; il modello e il motore web sono simulati. La schermata interfaccia-neurale-realizzata.png è invece acquisita dal server dell’app senza simulazione dei dati (Ollama non disponibile nel cloud). Veda AGGIORNAMENTO-NEURAL.md per limiti e aggiornamento Windows.

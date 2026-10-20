@@ -75,9 +75,9 @@ def bing_search(query):
     return [{'title':node.findtext('title',''),'url':public_link(node.findtext('link','')),'snippet':node.findtext('description','')} for node in root.findall('./channel/item')]
 
 def search(query):
-    if not isinstance(query,str) or not query.strip():raise ValueError('Inserisci una ricerca.')
+    if not isinstance(query,str) or not query.strip():raise ValueError('Inserisca una ricerca, signore.')
     query=query.strip()
-    if len(query)>500:raise ValueError('Ricerca troppo lunga: massimo 500 caratteri. Disattiva il web per testi lunghi.')
+    if len(query)>500:raise ValueError('Ricerca troppo lunga: massimo 500 caratteri. Disattivi il web per testi lunghi.')
     for provider in (duck_search,bing_search):
         try:
             results=[]; seen=set()
@@ -89,4 +89,4 @@ def search(query):
             if results:return results
         except (OSError,ValueError,ET.ParseError):
             continue
-    raise SearchUnavailable('La ricerca web non ha restituito estratti utilizzabili. Il motore può essere bloccato, richiedere un CAPTCHA o essere irraggiungibile. Riprova con parole diverse oppure disattiva “Cerca sul web” per usare solo il modello locale.')
+    raise SearchUnavailable('La ricerca web non ha restituito estratti utilizzabili. Il motore può essere bloccato, richiedere un CAPTCHA o essere irraggiungibile. Signore, riprovi con parole diverse oppure disattivi “Cerca sul web” per usare solo il modello locale.')
