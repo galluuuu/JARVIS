@@ -1,5 +1,19 @@
 # JARVIS Locale
 
+## Aggiornamento: ricerca internet
+
+Attiva **Cerca sul web** nella chat oppure scrivi/detta **cerca sul web: ultime notizie sull’esplorazione spaziale**. La domanda viene inviata a DuckDuckGo (HTML), con Bing RSS come alternativa. Il modello locale riassume gli estratti e l’interfaccia mostra fino a quattro fonti cliccabili. Non vengono scaricate le pagine complete. Nessuna API key o nuova libreria richiesta. I comandi locali restano offline. I motori possono bloccare le richieste automatiche o restituire risultati vecchi/non pertinenti: controlla le fonti. Se la ricerca fallisce, non viene generata una falsa risposta aggiornata; puoi aprire la ricerca nel browser o disattivare il web.
+
+### Aggiornare un’installazione esistente su Windows
+
+1. Ferma JARVIS con Ctrl+C nella sua finestra del terminale.
+2. Scarica [JARVIS-Aggiornamento-Web.zip](downloads/JARVIS-Aggiornamento-Web.zip?raw=true) ed estrailo in una cartella temporanea.
+3. Copia **tutto il contenuto estratto** nella tua cartella JARVIS (quella con app.py), confermando la sostituzione dei file. Non cancellare la vecchia cartella: `.venv`, `models` e `data` devono restare al loro posto. Il pacchetto di aggiornamento non contiene queste cartelle.
+4. Da quella cartella avvia `.venv\Scripts\python app.py`.
+5. Nel browser premi Ctrl+F5, abilita **Cerca sul web** e poni una domanda specifica.
+
+La voce e il modello già installati vengono riutilizzati. Questa modifica non aggiunge la creazione di eventi dalla chat e non cambia il modello AI. Per conversazioni senza ricerca disattiva la casella.
+
 ## Download
 - [Scarica il progetto ZIP](downloads/JARVIS-Locale.zip?raw=true)
 - [Leggi o scarica il manuale PDF](docs/Manuale-JARVIS.pdf)
