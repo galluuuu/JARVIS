@@ -1,0 +1,2 @@
+# Optional: local Italian speech recognition (Python 3.10–3.12 recommended)
+vosk==0.3.45
